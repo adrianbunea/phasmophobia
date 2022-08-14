@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "cypress": "^10.4.0",
     "elm-test": "^0.19.1-revision9"
   }
 }
