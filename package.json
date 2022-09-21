@@ -1,6 +1,10 @@
 {
+  "scripts": {
+    "start": "elm-spa server"
+  },
   "devDependencies": {
     "cypress": "^10.4.0",
+    "elm-spa": "^6.0.4",
     "elm-test": "^0.19.1-revision9"
   }
 }
