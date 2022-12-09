@@ -1,6 +1,7 @@
 module Pages.Case.Id_.Overview exposing (Model, Msg, page)
 
 import Gen.Params.Case.Id_.Overview exposing (Params)
+import Html
 import Page
 import Request
 import Shared
@@ -10,7 +11,7 @@ import View exposing (View)
 page : Shared.Model -> Request.With Params -> Page.With Model Msg
 page shared req =
     Page.element
-        { init = init
+        { init = init req.params.id
         , update = update
         , view = view
         , subscriptions = subscriptions
@@ -22,12 +23,12 @@ page shared req =
 
 
 type alias Model =
-    {}
+    String
 
 
-init : ( Model, Cmd Msg )
-init =
-    ( {}, Cmd.none )
+init : String -> ( Model, Cmd Msg )
+init id =
+    ( id, Cmd.none )
 
 
 
@@ -60,4 +61,6 @@ subscriptions model =
 
 view : Model -> View Msg
 view model =
-    View.placeholder "Case.Id_.Overview"
+    { title = "Overview"
+    , body = [ [ "Case Overview", model ] |> String.join " " |> Html.text ]
+    }
