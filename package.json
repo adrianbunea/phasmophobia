@@ -5,7 +5,7 @@
     "test": "start-server-and-test start http://localhost:1234 cy:run"
   },
   "devDependencies": {
-    "cypress": "^10.4.0",
+    "cypress": "^10.8.0",
     "elm-spa": "^6.0.4",
     "elm-test": "^0.19.1-revision9",
     "start-server-and-test": "^1.14.0"
