@@ -56,10 +56,11 @@ subscriptions _ _ =
 
 
 view :
-    Request
+    Model
+    -> Request
     -> { page : View msg, toMsg : Msg -> msg }
     -> View msg
-view req { page, toMsg } =
+view model req { page, toMsg } =
     { title =
         if String.isEmpty page.title then
             "Phasmophobia"
@@ -67,7 +68,7 @@ view req { page, toMsg } =
         else
             page.title ++ " | Phasmophobia"
     , body =
-        [ Components.Navbar.view { currentRoute = Route.fromUrl req.url }
+        [ Components.Navbar.view model.storage.caseId (Route.fromUrl req.url)
         , Html.div [] (page.body |> List.map Html.fromUnstyled)
         ]
             |> List.map Html.toUnstyled

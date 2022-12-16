@@ -10,12 +10,12 @@ import Html.Styled.Attributes as Attributes
 -- MODEL
 
 
-navItems : List ( String, Route )
-navItems =
+navItems : Int -> List ( String, Route )
+navItems caseId =
     [ ( "Home", Route.Home_ )
     , ( "Items", Route.Items )
-    , ( "Overview", Route.Case__Id___Overview { id = "" } )
-    , ( "Photos", Route.Case__Id___Photos { id = "" } )
+    , ( "Overview", Route.Case__Id___Overview { id = String.fromInt caseId } )
+    , ( "Photos", Route.Case__Id___Photos { id = String.fromInt caseId } )
     , ( "Evidence", Route.Evidence )
     , ( "Ghosts", Route.Ghosts )
     ]
@@ -25,10 +25,10 @@ navItems =
 -- VIEW
 
 
-view : { currentRoute : Route } -> Html msg
-view { currentRoute } =
+view : Int -> Route -> Html msg
+view caseId currentRoute =
     Html.nav [ Attributes.css navbarStyles ]
-        [ Html.ul [ Attributes.css navbarItemsStyles ] (navItems |> List.map (navbarItem currentRoute)) ]
+        [ Html.ul [ Attributes.css navbarItemsStyles ] (caseId |> navItems |> List.map (navbarItem currentRoute)) ]
 
 
 navbarItem : Route -> ( String, Route ) -> Html msg

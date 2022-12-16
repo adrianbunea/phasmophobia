@@ -127,7 +127,8 @@ update msg model =
 
 view : Model -> Browser.Document Msg
 view model =
-    Shared.view (Request.create () model.url model.key)
+    Shared.view model.shared
+        (Request.create () model.url model.key)
         { page =
             Pages.view model.page model.shared model.url model.key
                 |> View.map Page
