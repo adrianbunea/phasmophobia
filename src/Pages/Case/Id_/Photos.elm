@@ -1,6 +1,6 @@
-module Pages.Home_ exposing (Model, Msg, page)
+module Pages.Case.Id_.Photos exposing (Model, Msg, page)
 
-import Gen.Params.Home_ exposing (Params)
+import Gen.Params.Case.Id_.Photos exposing (Params)
 import Page
 import Request
 import Shared
@@ -60,4 +60,4 @@ subscriptions model =
 
 view : Model -> View Msg
 view model =
-    View.placeholder "Home_"
+    View.placeholder "Case.Id_.Photos"
