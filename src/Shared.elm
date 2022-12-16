@@ -13,6 +13,7 @@ import Gen.Route as Route
 import Html.Styled as Html
 import Json.Decode as Json
 import Request exposing (Request)
+import Storage exposing (Storage)
 import View exposing (View)
 
 
@@ -21,28 +22,33 @@ type alias Flags =
 
 
 type alias Model =
-    {}
+    { storage : Storage
+    }
 
 
 type Msg
-    = NoOp
+    = StorageUpdated Storage
 
 
 init : Request -> Flags -> ( Model, Cmd Msg )
-init _ _ =
-    ( {}, Cmd.none )
+init _ flags =
+    ( { storage = Storage.fromJson flags }
+    , Cmd.none
+    )
 
 
 update : Request -> Msg -> Model -> ( Model, Cmd Msg )
 update _ msg model =
     case msg of
-        NoOp ->
-            ( model, Cmd.none )
+        StorageUpdated storage ->
+            ( { model | storage = storage }
+            , Cmd.none
+            )
 
 
 subscriptions : Request -> Model -> Sub Msg
 subscriptions _ _ =
-    Sub.none
+    Storage.onChange StorageUpdated
 
 
 

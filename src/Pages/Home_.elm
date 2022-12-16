@@ -1,9 +1,13 @@
 module Pages.Home_ exposing (Model, Msg, page)
 
 import Gen.Params.Home_ exposing (Params)
+import Html.Styled as Html exposing (Html)
+import Html.Styled.Events as Events
 import Page
+import Random
 import Request
 import Shared
+import Storage exposing (Storage)
 import View exposing (View)
 
 
@@ -11,7 +15,7 @@ page : Shared.Model -> Request.With Params -> Page.With Model Msg
 page shared req =
     Page.element
         { init = init
-        , update = update
+        , update = update shared.storage
         , view = view
         , subscriptions = subscriptions
         }
@@ -35,14 +39,22 @@ init =
 
 
 type Msg
-    = ReplaceMe
+    = StartCase
+    | CaseGenerated Int
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
+update : Storage -> Msg -> Model -> ( Model, Cmd Msg )
+update storage msg model =
     case msg of
-        ReplaceMe ->
-            ( model, Cmd.none )
+        StartCase ->
+            ( model
+            , Random.generate CaseGenerated (Random.int 1 1000)
+            )
+
+        CaseGenerated id ->
+            ( model
+            , Storage.saveCase id storage
+            )
 
 
 
@@ -60,4 +72,12 @@ subscriptions model =
 
 view : Model -> View Msg
 view model =
-    View.placeholder "Home_"
+    { title = "Home"
+    , body = bodyView |> List.map Html.toUnstyled
+    }
+
+
+bodyView : List (Html Msg)
+bodyView =
+    [ Html.button [ Events.onClick StartCase ] [ Html.text "Start Case" ]
+    ]
